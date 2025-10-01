@@ -1,0 +1,492 @@
+//=============== Wrire below code in main-product section schema inside blocks:[] =============================
+
+    {
+      "type": "subscription",
+      "name": "Subscription",
+      "settings": [
+        {
+          "type": "text",
+          "id": "subs_label_text",
+          "default": "Subscription",
+          "label": "Label text"
+        }
+      ]
+    },
+
+//=============== Crete snippets (subscription.liquid) then render in main-product section inside case like belwo:-  =============================
+  {%- when 'subscription' -%}
+                {% render 'subscription', section: section, product: product %}
+
+//=============== Paste below code in creted snnippet (subscription.liquid)  =============================
+<style>
+.shopify_subscriptions_app_container{
+    display: none;
+}
+.shopify-block.shopify-app-block{
+    display: none;
+}
+.subscription_conn{
+    margin: 12px 0;
+}
+.subscription_conn fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+.subscription_conn fieldset > legend {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.subscription_conn label{
+    display: flex;
+    gap: 8px;
+    border: 1px solid;
+    padding: 18px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.subscription_conn label:last-child{
+    margin-bottom: 0px;
+    margin-top: -10px;
+}
+.subscription_details_conn{
+    width: 100%;
+    position: relative;
+}
+.subs_badge {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    background-color: #022f40;
+    color: #fff;
+    line-height: normal;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+span.label_icon {
+    background-image: url('https://cdn.shopify.com/s/files/1/0851/3250/9470/files/radio-button.png?v=1758260577');
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: -2px;
+    margin-top: 2px;
+}
+.subscription_details_item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    line-height: normal;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.subscription_details_item > h4{
+    font-size: 18px;
+    margin: 0;
+}
+.subscription_details_bottom > h4{
+    font-size: 14px;
+    font-weight: 500;
+}
+.subscription_price_details{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.subscription_sale_price{
+    font-size: 16px;
+    font-weight: 700;
+}
+.subscription_conpare_price{
+    font-size: 14px;
+    text-decoration: line-through;
+}
+.subscription_serving_price{
+    font-size: 14px;
+}
+.subscription_features_conn{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid;
+    padding-top: 14px;
+    margin-top: 14px;
+}
+.subscription_features_conn li{
+    display: flex;
+    gap: 8px;
+}
+ul.subscription_features_conn li p {
+    margin: 0;
+    line-height: normal;
+    letter-spacing: 0px;
+    font-size: 14px;
+}
+.sub_feature_icon{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    display: inline-block;
+    margin-top: 2px;
+}
+.sub_feature_icon img{
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.subscription_conn input[type="radio"]:checked + label{
+    background-color: #F3F3F3;
+} 
+.subscription_conn input[type="radio"]:checked + label span.label_icon{
+    background-image: url("https://cdn.shopify.com/s/files/1/0851/3250/9470/files/radio.png?v=1758260577");
+} 
+
+@media screen and (max-width:767px) {
+    ul.subscription_features_conn li p {
+        font-size: 12px;
+    }
+    .subscription_conn label {
+        padding: 16px 8px;
+    }
+    span.label_icon {
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        margin-top: 1px;
+    }
+    .subscription_details_item > h4 {
+        font-size: 14px;
+    }
+    .subscription_details_bottom > h4 {
+        font-size: 13px;
+    }
+    .subscription_details_bottom {
+        margin-top: 4px;
+    }
+    .subscription_sale_price {
+        font-size: 13px;
+    }
+    .subscription_conpare_price {
+        font-size: 11px;
+    }
+    .subscription_serving_price {
+        font-size: 12px;
+    }
+    .subscription_details_item {
+        gap: 0px;
+    }
+    .subscription_conn label {
+        gap: 5px;
+    }
+    .subs_badge {
+        font-size: 11px;
+    }
+    .sub_feature_icon {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        min-height: 14px;
+    }
+}
+</style>
+
+
+
+{% for block in section.blocks %}
+    {% if block.type == "subscription" and product.selling_plan_groups != blank %}
+        <div class="subscription_conn" data-currency-symbol="{{ localization.country.currency.symbol }}" data-currecny-iso_code="{{ localization.country.currency.iso_code }}">
+            <fieldset>
+                <legend>{{ block.settings.subs_label_text }}</legend>
+        
+                <input type="radio" name="subscription" id="subscription-1" hidden>
+                <label for="subscription-1" class="first_subs_plan">
+                    <span class="label_icon"></span>
+                    <div class="subscription_details_conn">
+                        <span class="subs_badge">Most Popular</span>
+                        <div class="subscription_details_item subscription_details_top">
+                            <h4>Monthly (30% OFF)</h4>
+                            <div class="subscription_price_details">
+                                <span class="subscription_sale_price">{{ product.price | money }}</span>
+                                <span class="subscription_conpare_price">{{ product.compare_at_price | money }}</span>
+                            </div>
+                        </div>
+        
+                        <div class="subscription_details_item subscription_details_bottom">
+                            <h4>Receive 1 bag per month.</h4>
+                            <span class="subscription_serving_price">{{ product.compare_at_price | minus: product.price | money }} / Save</span>
+                        </div>
+        
+                        <ul class="subscription_features_conn">
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Exclusive Monthly Discounts on bags.</p>
+                            </li>
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Free Shipping on all AU orders.</p>
+                            </li>
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Access to New Arrivals and limited edition bags.</p>
+                            </li>
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Free Gift with every season's new bag.</p>
+                            </li>
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Cancel Anytime</p>
+                            </li>
+                        </ul>
+                    </div>
+                </label>
+                <input type="radio" name="subscription" id="subscription-2" hidden>
+                <label for="subscription-2" class="second_subs_plan">
+                    <span class="label_icon"></span>
+                    <div class="subscription_details_conn">
+                        <span class="subs_badge">Best Value</span>
+                        <div class="subscription_details_item subscription_details_top">
+                            <h4>3 Months (20% OFF)</h4>
+                            <div class="subscription_price_details">
+                                <span class="subscription_sale_price">{{ product.price | money }}</span>
+                                <span class="subscription_conpare_price">{{ product.compare_at_price | money }}</span>
+                            </div>
+                        </div>
+        
+                        <div class="subscription_details_item subscription_details_bottom">
+                            <h4>Receive 1 bag per month for 3 months.</h4>
+                            <span class="subscription_serving_price">{{ product.compare_at_price | minus: product.price | money }} / Save</span>
+                        </div>
+        
+                        <ul class="subscription_features_conn">
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Free Shipping on all AU orders for the next 3 months.</p>
+                            </li>
+                            <li>
+                                <span class="sub_feature_icon"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span>
+                                <p>Cancel Anytime</p>
+                            </li>
+                        </ul>
+                    </div>
+                </label>
+        
+                <input type="radio" name="subscription" id="subscription-3" hidden>
+                <label for="subscription-3" class="one_time_subs">
+                    <span class="label_icon"></span>
+                    <div class="subscription_details_conn">
+                        <div class="subscription_details_item subscription_details_top">
+                            <h4>One-Time Purchase</h4>
+                            <div class="subscription_price_details">
+                                <span class="subscription_sale_price">{{ product.price | money }}</span>
+                                {% comment %} <span class="subscription_conpare_price">$34.99</span> {% endcomment %}
+                            </div>
+                        </div>
+        
+                        <div class="subscription_details_item subscription_details_bottom">
+                            <h4>One-time purchase of 1 bag.</h4>
+                        </div>
+                    </div>
+                </label>
+        
+            
+            </fieldset>
+        </div>
+    {% endif %}
+{% endfor %}
+
+//=============== After that crete own custom file os JS in assets folder then link in theme.liquid aobe of </body>  =============================
+//=============== like :-     <script src="{{ 'custom-script.js' | asset_url }}" defer="defer"></script> =========================
+
+
+//================== after that use below code in created js file ===================
+
+
+//====================== subscription price get and set js code =============================
+
+$(document).ready(function () {
+    // Fixed Function to clean and convert price string to float
+    function extractNumber(priceStr) {
+        if (!priceStr) return 0;
+        
+        // console.log("Original price string:", JSON.stringify(priceStr));
+        
+        // First, trim the string to remove leading/trailing whitespace and newlines
+        let cleaned = priceStr.trim();
+        
+        // Remove ALL non-numeric characters except digits, commas, periods, and minus
+        // This will remove "Rs.", "$", "AUD", etc. completely
+        cleaned = cleaned.replace(/[^\d,.-]/g, '');
+        
+        // console.log("After removing non-numeric:", JSON.stringify(cleaned));
+        
+        if (!cleaned) return 0;
+        
+        // Handle cases where there might be a leading dot (like ".8,900.00")
+        if (cleaned.startsWith('.')) {
+            cleaned = cleaned.substring(1); // Remove the leading dot
+        }
+        
+        // Handle negative numbers
+        let isNegative = cleaned.startsWith('-');
+        cleaned = cleaned.replace(/^-/, '');
+        
+        // console.log("After handling leading dot/negative:", JSON.stringify(cleaned));
+        
+        // Determine the format based on the last separator
+        let lastComma = cleaned.lastIndexOf(',');
+        let lastPeriod = cleaned.lastIndexOf('.');
+        
+        let result;
+        
+        if (lastComma > lastPeriod) {
+            // European format: 1.500,00 or 1500,00
+            cleaned = cleaned.replace(/\./g, '').replace(',', '.');
+            result = parseFloat(cleaned);
+        } else if (lastPeriod > lastComma) {
+            // Indian/US format: 8,900.00 or 8900.00
+            cleaned = cleaned.replace(/,/g, '');
+            result = parseFloat(cleaned);
+        } else {
+            // No separators or only one type
+            cleaned = cleaned.replace(/,/g, '');
+            result = parseFloat(cleaned);
+        }
+        
+        result = isNaN(result) ? 0 : result;
+        if (isNegative) result = -result;
+        
+        // console.log("Final parsed number:", result);
+        return result;
+    }
+
+    // Function to extract and log updated prices
+    function logUpdatedPrices() {
+        console.clear();
+        let regularPriceText = $(".product__info-wrapper .price__container .price__regular .price-item--regular").text();
+        let salePriceText = $(".product__info-wrapper .price__container .price__sale .price-item--sale").text();
+        // console.log("regularPriceText -----", JSON.stringify(regularPriceText));
+        // console.log("salePriceText --------", JSON.stringify(salePriceText));
+
+        // Get the visible subscription section (without .shopify_subscriptions_app_block--hidden class)
+        $(".shopify_subscriptions_app_container").hide();
+        let visibleSection = $(".shopify_subscriptions_app_container section").not(".shopify_subscriptions_app_block--hidden").first();
+
+        // If no visible section is found, return early
+        if (!visibleSection.length) {
+            console.error('No visible subscription section found.');
+            return;
+        }
+
+        let subsAppOneTimeOption = visibleSection.find('.shopify_subscriptions_fieldset .shopify_subscriptions_app_block_label.shopify_subscriptions_purchase_option_wrapper').children("label");
+        let subsAppDiscountOptions = visibleSection.find('.shopify_subscriptions_fieldset ul.shopify_subscriptions_app_block_label_children label');
+
+        // Ensure these elements exist
+        if (!subsAppOneTimeOption.length || !subsAppDiscountOptions.length) {
+            console.error('One-time options or discount options not found.');
+            return;
+        }
+
+        let subsAppOption30 = subsAppDiscountOptions[0];
+        let subsAppOption20 = subsAppDiscountOptions[1];
+        let subComparePrice = $(".subscription_conn .subscription_details_conn .subscription_conpare_price");
+        let subOneTimeSalePrice = $(".subscription_conn .one_time_subs .subscription_sale_price");
+        let subOneTimePlan = $(".subscription_conn .one_time_subs");
+        let subSalePrice2 = $(".subscription_conn .second_subs_plan .subscription_sale_price");
+        let subSalePrice1 = $(".subscription_conn .first_subs_plan .subscription_sale_price");
+        let subSecondPlan = $(".subscription_conn .second_subs_plan");
+        let subFirstPlan = $(".subscription_conn .first_subs_plan");
+        let subServingPrice2 = $(".subscription_conn .second_subs_plan .subscription_serving_price");
+        let subServingPrice1 = $(".subscription_conn .first_subs_plan .subscription_serving_price");
+        let currencySymbol = $(".subscription_conn").attr("data-currency-symbol");
+
+        // Clean and extract the numeric value of regular and sale prices
+        let regularPrice = regularPriceText ? extractNumber(regularPriceText) : 0;
+        let salePrice = salePriceText ? extractNumber(salePriceText) : undefined;
+        salePrice = salePrice !== undefined ? salePrice : regularPrice;
+        
+        let newSamePrice = (salePrice === regularPrice) ? salePrice : regularPrice;
+        console.log("newSamePrice -----", newSamePrice);
+
+        let disconut20SavePrice = newSamePrice * 20 / 100;
+        let disconut30SavePrice = newSamePrice * 30 / 100;
+        let disconut20Price = newSamePrice - disconut20SavePrice;
+        let disconut30Price = newSamePrice - disconut30SavePrice;
+
+        // Log the extracted prices to the console (for debugging)
+        console.log("🟡 Regular Price:", regularPrice);
+        console.log("🟢 Sale Price:", salePrice);
+        console.log("⚪ Same Price:", newSamePrice);
+
+        // Update the subscription compare prices (if equal)
+        if (newSamePrice !== null) {
+            // Format numbers to 2 decimal places
+            subComparePrice.text(`${currencySymbol}${newSamePrice.toFixed(2)}`);
+            subOneTimeSalePrice.text(`${currencySymbol}${newSamePrice.toFixed(2)}`);
+            subSalePrice1.text(`${currencySymbol}${disconut30Price.toFixed(2)}`);
+            subSalePrice2.text(`${currencySymbol}${disconut20Price.toFixed(2)}`);
+            subServingPrice1.text(`${currencySymbol}${disconut30SavePrice.toFixed(2)} / Save`);
+            subServingPrice2.text(`${currencySymbol}${disconut20SavePrice.toFixed(2)} / Save`);
+        }
+
+        // Handling the 500ms click delay for subscription options
+        function triggerClickWithDelay(element, delay = 500) {
+            setTimeout(function () {
+                if (element.length) {
+                    element.click();
+                }
+            }, delay);
+        }
+
+        // Handling the click events with a delay
+        triggerClickWithDelay($(subOneTimePlan), 100);
+        
+        subOneTimePlan.click(function () {
+            triggerClickWithDelay($(subsAppOneTimeOption[0]), 500);
+        });
+
+        $(subFirstPlan).click(function () {
+            triggerClickWithDelay($(subsAppOption30), 500);
+        });
+
+        $(subSecondPlan).click(function () {
+            triggerClickWithDelay($(subsAppOption20), 500);
+        });
+    }
+
+    // Event delegation: track variant label clicks and trigger price updates
+    $(".product__info-wrapper").on("click", "variant-selects label", function () {
+        setTimeout(logUpdatedPrices, 1700); // Delay to ensure everything is rendered
+    });
+
+    // ✅ Trigger click on the first variant label after DOM is ready
+    setTimeout(function () {
+        const firstLabel = $(".product__info-wrapper variant-selects label").first();
+        if (firstLabel.length) {
+            firstLabel.trigger("click");
+        }
+    }, 500); // Slight delay to ensure everything is rendered
+
+    // Also trigger price update on page load
+    setTimeout(logUpdatedPrices, 1000);
+});
+
+//====================== subscription price get and set js code =============================
+
+
+
+
+
