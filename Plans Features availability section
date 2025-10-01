@@ -1,0 +1,238 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+{%- endstyle -%}
+
+
+<style>
+.pros_cons_body .features_col_slider:nth-child(2) li:first-child::after {
+    position: absolute;
+    content: "";
+    top: -42px;
+    left: -1px;
+    right: -1px;
+    height: 40px;
+    background-color: #022f40;
+    border-radius: 50% 50% 0 0;
+    z-index: 1;
+}
+.pros_cons_body .features_col_slider:nth-child(2) {
+    position: relative;
+    background-color: #022f40;
+    color: #fff;
+}
+
+.pros_cons_body .features_col_slider:nth-child(2) h3{
+    color: #fff;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+
+.pros_cons_sec {
+    /* margin-top: 62px; */
+}
+.pros_cons_rapp{
+  display: flex;
+}
+.pros_cons_rapp ul{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.pros_cons_rapp ul li{
+   border-top: 2px solid #022f40;
+   border-right: 2px solid #022f40;
+   padding: 10px;
+   min-height: 70px;
+} 
+.features_col{
+  max-width: 100%;
+  width: calc( 100% / 4);
+  min-width: 110px;
+}
+.pros_cons_icon_rap {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+}
+.pros_cons_body{
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  padding-top: 62px;
+}
+ul.features_col > li:first-child{
+  margin-top: 62px;
+}
+.pros_cons_body li{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.features_col_slider{
+  max-width: 100%;
+  width: calc( 100% / 3);
+  min-width: 110px;
+}
+h4.pack_features,
+h3.pack_title {
+  margin: 0;
+}
+.pros_cons_icon_rap img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+ul.features_col li{
+  padding: 0 10px 0 0;
+  display: flex;
+  align-items: center;
+}
+.pros_cons_body .features_col_slider:last-child li{
+   border-right: 0;
+}
+@media screen and (max-width:767px) {
+  .pros_cons_icon_rap {
+    width: 20px;
+    height: 20px;
+  }
+  .pros_cons_rapp ul li {
+      padding: 5px;
+  }
+  h4.pack_features{
+    font-size: 12px;
+  }
+  h3.pack_title{
+    font-size: 14px;
+  }
+  .pros_cons_body .features_col_slider:nth-child(2)  h3{
+      font-size: 16px;  
+  }
+  .pros_cons_body .features_col_slider:nth-child(2) li:first-child::after {
+      left: -2px;
+      right: 1px;
+  }
+}
+</style>
+
+{% assign pack_features = product.metafields.custom.pack_features.value %}
+{% if pack_features != blank %}
+  <div class="pros_cons_sec color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+      <div class="pros_cons_can page-width">
+          <div class="pros_cons_rapp">
+              <ul class="features_col">
+                    <li><h3> </h3></li>
+                    <ul>
+                      {% for feature_name in pack_features.feature_name.value %}
+                        <li><h4 class="pack_features">{{ feature_name }}</h4></li>
+                      {% endfor %}
+                    </ul>
+                    {% comment %} {% for pack_heading in pack_features.pack_heading.value %}
+                      <li><h3>{{ pack_heading }}</h3></li>
+                    {% endfor %} {% endcomment %}
+              </ul>
+              <div class="pros_cons_body">
+                  <ul class="features_col_slider">
+                      <li><h3 class="pack_title">{{ pack_features.plan_1_name.value }}</h3></li>
+                      <ul>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                      </ul>
+                    </ul>
+                    <ul class="features_col_slider">
+                      <li><h3 class="pack_title">{{ pack_features.plan_2_name.value }}</h3></li>
+                      <ul>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/letter-x.png?v=1758003254" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_2.png?v=1758019972" alt="icon"></span></li>
+                      </ul>
+                    </ul>
+                    <ul class="features_col_slider">
+                      <li><h3 class="pack_title">{{ pack_features.plan_3_name.value }} </h3></li>
+                      <ul>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                        <li><span class="pros_cons_icon_rap"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/check_1.png?v=1758003255" alt="icon"></span></li>
+                      </ul>
+                    </ul>
+              </div>
+  
+          </div>
+      </div>
+  </div>
+{% endif %}
+
+
+
+
+{% schema %}
+{
+  "name": "Pros & Cons Section",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pros & Cons Section"
+    }
+  ]
+}
+{% endschema %}
