@@ -1,0 +1,221 @@
+=========== Use below css code for header transparent for home page. =========
+
+{%- style -%}
+  sticky-header.header-wrapper {
+    transition: all 0.3s ease-in;
+  }
+  {% if template.name == "index" %}
+    sticky-header.header-wrapper {
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: transparent;
+    }
+    .shopify-section-header-sticky sticky-header.header-wrapper {
+      top: 0;
+      background: #fff;
+    }
+  {% endif %}
+{%- endstyle -%}
+
+
+===================================== Mega menu code ==============================================
+
+//=============== Wrire below code in header section schema inside blocks:[] =============================
+    {
+      "type": "mega-menu",
+      "name" :"Mega-menu",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "header",
+          "content": "#1 Promo"
+        },
+        {
+          "type": "text",
+          "id": "mega_menu_title",
+          "label": "Enter menu name"
+        },
+        {
+          "type": "image_picker",
+          "id": "mega_promo_image_1",
+          "label": "Select Image"
+        },
+        {
+          "type": "select",
+          "id": "promo_image_view",
+          "options": [
+            {
+              "value": "1",
+              "label": "Full view"
+            },
+            {
+              "value": "2",
+              "label": "Half view"
+            }
+          ],
+          "default": "2",
+          "label": "Image View"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "mega_promo_heading_1",
+          "label": "Headinge"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "mega_promo_subheading_1",
+          "label": "Sub Heading"
+        },
+        {
+          "type": "url",
+          "id": "mega_promo_link_1",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "#2 Promo"
+        },
+        {
+          "type": "image_picker",
+          "id": "mega_promo_image_2",
+          "label": "Select Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "mega_promo_heading_2",
+          "label": "Headinge"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "mega_promo_subheading_2",
+          "label": "Sub Heading"
+        },
+        {
+          "type": "url",
+          "id": "mega_promo_link_2",
+          "label": "Link"
+        }
+      ]
+    }
+
+//=============== Wrire below code in header-mega-menu snippets =============================
+
+<style>
+  .mega-menu__list {
+      gap: 20px;
+      grid-template-columns: repeat(3,minmax(170px,1fr));
+  }
+  .rapper_menulist_menupromo{
+    display: flex;
+    gap: 20px;
+  }
+  .rapper_menulist_menupromo ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  ul.mega-menu__list{
+    flex: 1.8;
+  }
+  ul.menupomo_can{
+    flex: 1;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  /* ul.menupomo_can li{
+    width: calc((100% - 16px) / 2 );
+  } */
+  .menupomo_image_rap img{
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    /* aspect-ratio: 1 / 1; */
+  }
+  ul.menupomo_can a{
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  ul.menupomo_can h4 {
+      margin: 0;
+      font-size: 16px;
+  }
+  ul.menupomo_can p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.2;
+      /* display: -webkit-box;            
+      -webkit-line-clamp: 2;          
+      -webkit-box-orient: vertical;   
+      overflow: hidden;                
+      text-overflow: ellipsis; 
+      max-width: 20ch; */
+  }
+.mega-menu__content {
+    background-color: #fff9;
+    backdrop-filter: blur(9px);
+    padding-bottom: 4rem;
+    max-height: 600px;
+    overflow: auto;
+}
+  hr.second_level_seprator {
+      margin: 10px 0 12px 0;
+      height: 0.2rem;
+      background-color: rgb(212,107,67);
+  }
+  .mega-menu__link--level-2 {
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+  }
+</style>
+
+{% for block in section.blocks %}
+  {% style %}
+    {% if block.settings.promo_image_view == "1" %}  
+        ul.menupomo_can li.block-{{ block.id }} {
+          width: 100%;
+        }
+    {% else %}
+        ul.menupomo_can li.block-{{ block.id }}{
+          width: calc((100% - 16px) / 2);
+        }
+    {% endif %}
+  {% endstyle %}
+{% endfor %}
+
+            <ul class="menupomo_can">
+                  {% for block in section.blocks %}
+                    {% if block.type == "mega-menu" %}
+                      {% assign link_title_small = link.title | downcase %}
+                      {% assign mega_menu_title_small = block.settings.mega_menu_title | downcase %}
+                      {% comment %} {{ mega_menu_title_small }} {% endcomment %}
+                      {% if mega_menu_title_small ==  link_title_small %}            
+                        <li class="block-{{ block.id }}">
+                          <a href="{{ block.settings.mega_promo_link_1 }}">
+                            {% if block.settings.mega_promo_image_1 != blank %}
+                              <div class="menupomo_image_rap"><img src="{{ block.settings.mega_promo_image_1 | img_url: 'master' }}" alt="image"></div>
+                            {% endif %}
+                            <h4>{{ block.settings.mega_promo_heading_1 }}</h4>
+                            <p>{{ block.settings.mega_promo_subheading_1 | truncate: 50, "..." }}</p>
+                          </a>
+                        </li>
+                        <li class="block-{{ block.id }}">
+                          <a href="{{ block.settings.mega_promo_link_2 }}">
+                            {% if block.settings.mega_promo_image_2 != blank %}
+                              <div class="menupomo_image_rap"><img src="{{ block.settings.mega_promo_image_2 | img_url: 'master' }}" alt="image"></div>
+                            {% endif %}
+                            <h4>{{ block.settings.mega_promo_heading_2 }}</h4>
+                            <p>{{ block.settings.mega_promo_subheading_2 | truncate: 50, "..." }}</p>
+                          </a>
+                        </li>
+          
+                      {% endif %}
+                    {% endif %}          
+                  {% endfor %}
+                </ul>
