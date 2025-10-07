@@ -1,0 +1,643 @@
+//================= create snippet ( call below code thats you wants show ) ======================
+  {%- when 'upsell_products' -%}
+                {% render 'upsell-product', section: section, product: product %}
+
+//================== upsell-product snippent code ===============
+<style>
+/* ------- slick slider css code ---------- */
+.upsell_product_item.slick-slide{
+    display: grid;
+}
+.upsell_slider_embded .slick-slide {
+    /* margin: 0 8px; */
+}
+.upsell_slider_embded .slick-list {
+    /* margin: 0 -8px; */
+}
+span.slider_arrow_cstm {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: #022f40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.slider_arrow_cstm.slick-disabled{
+    opacity: 0.7;
+}
+.slider_arrow_cstm svg{
+    width: 40%;
+    object-fit: contain;
+    display: block;
+    fill: #fff;
+}
+span.prev_arrow_btn {
+    right: 35px;
+    transform: rotate(180deg);
+}
+.upsell_slider_embded .slick-track {
+  display: flex !important;
+}
+.upsell_slider_embded .slick-slide {
+  height: auto;
+}
+/* ------- slick slider css code ---------- */
+
+.upsell_products_conn {
+    margin: 12px 0;
+}
+
+.upsell_product_list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+}
+
+.upsell_product_item {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+    border: 1px solid #ddd;
+    /* align-items: center; */
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.upsell_product_image {
+    height: 100%;
+    width: 100%;
+}
+
+.upsell_product_image img {
+    width: 100%;
+    height: auto; 
+    display: block;
+    object-fit: cover;
+    border: 1px solid #f4f4f4;  
+    aspect-ratio: 1 / 1;
+}
+
+.upsell_product_details_rapper {
+    display: flex;
+    /* align-items: center; */
+    gap: 10px;
+}
+
+.upsell_product_details {
+    width: 100%;
+    /* padding: 10px 0 12px 0; */
+}
+
+.upsell_product_details_rapper button {
+    padding: 10px 20px;
+    background-color: #022f40;
+    color: #fff;
+    height: fit-content;
+    font-size: 14px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.upsell_product_details_rapper button:focus,
+.upsell_product_details_rapper button:hover {
+    background-color: #015a6d;  
+    outline: none;
+}
+
+.upsell_product_details h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: normal;
+    margin-bottom: 4px;
+}
+
+.upsell_product_details h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+fieldset.upsell_product_variants_conn {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.upsell_product_variants_conn legend {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 0;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.upsell_product_variants_conn legend .selected_color_variant {
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.variant_color_selector_rapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.variant_color_selector_rapper label {
+    width: 22px;
+    height: 22px;
+    min-height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.variant_color_selector_rapper input[type="radio"]:checked + label {
+    outline: 1px solid #000;
+}
+
+.variant_color_selector_rapper label:hover {
+    transform: scale(1.1); 
+}
+
+.variant_pill_selector_rapper {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.variant_pill_selector_rapper label {
+    border: 1px solid #0005;
+    line-height: normal;
+    padding: 2px 6px;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.variant_pill_selector_rapper input[type="radio"]:checked + label {
+    background-color: #022f40;
+    color: #fff;
+}
+
+.variant_pill_selector_rapper label:hover {
+    background-color: #022f40;
+    color: #fff;
+    transform: scale(1.1); 
+}
+.legend_label{
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+.product_variants_atc_rapper {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+.upsell_product_price_conn {
+    display: flex;
+    gap: 6px;
+    line-height: normal;
+    align-items: center;
+    /* margin-bottom: 8px; */
+}
+.upsell_product_price_conn .upsell_product_regular_price{
+    font-weight: 600;
+    font-size: 15px;
+}
+.upsell_product_price_conn .upsell_product_compare_price{
+    text-decoration: line-through;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 768px) {
+    .product_variants_atc_rapper {
+        width: 100%;
+    }
+    .upsell_product_details h3 {
+        font-size: 16px;
+    }
+    .upsell_product_details_rapper button {
+        width: 100%;
+        padding: 10px;
+    }
+    .upsell_product_details_rapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .variant_pill_selector_rapper label {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+}
+
+
+</style>
+
+
+<div class="upsell_products_conn">
+    <span class="legend_label">Bought Together</span>
+    <ul class="upsell_product_list upsell_slider_embded">
+        {% for product in product.metafields.custom.upsell_products.value %}
+            <li class="upsell_product_item">
+                <div class="upsell_product_image">
+                    <a href="{{ product.url }}">
+                        <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+                    </a>
+                </div>
+                <div class="upsell_product_details_rapper">
+                    <div class="upsell_product_details">
+                        <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                        <div class="upsell_product_price_conn">
+                            <span class="upsell_product_compare_price">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                            <span class="upsell_product_regular_price">{{ product.price | money_without_trailing_zeros }}</span>
+                        </div>
+                        <fieldset class="upsell_product_variants_conn">
+                            {% for product_option in product.options_with_values %}
+                                {% if product_option.name == "Color" or product_option.name == "color" %}
+                                    <legend>{{ product_option.name }}: <span class="selected_color_variant"></span></legend>
+                                    <div class="variant_color_selector_rapper">
+                                        {% assign color_options = shop.metaobjects['shopify--color-pattern'].values %}                            
+                                        {% for value in product_option.values %}
+                                            {% assign value_lower = value | handleize %}
+                                                {% assign color_meta = nil %}  
+                                                    {% for color_option in color_options %}
+                                                    {% assign meta_color_small = color_option.label | handleize %}
+                                                    {% if meta_color_small == value_lower %}
+                                                        {% assign color_meta = color_option %}
+                                                        {% break %}  <!-- Exit the loop once a match is found -->
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% comment %} {{ value_lower }} - {% if color_meta %}{{ color_meta.label }}{% else %}No match{% endif %} <br> {% endcomment %}
+
+                                                {% if color_meta %}
+                                                    <input
+                                                        type="radio"
+                                                        name="color_{{ product.id }}"
+                                                        value="{{ color_meta.label }}"
+                                                        id="variant_color_{{ product.id }}_{{ forloop.index }}"
+                                                        hidden
+                                                        {% if forloop.index == 1 %}checked {% endif %} {{ forloop.index }}
+                                                        aria-label="Select {{ color_meta.label }} color"
+                                                    >
+                                                    <label
+                                                    for="variant_color_{{ product.id }}_{{ forloop.index }}"
+                                                    style="background: {{ color_meta.color.value }};"
+                                                    title="{{ color_meta.label }}"
+                                                    >
+                                                    </label>
+                                                {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <legend>{{ product_option.name }}: <span class="selected_color_variant"></span></legend>
+                                    <div class="variant_pill_selector_rapper">
+                                        {% for value in product_option.values %}
+                                            <input
+                                                type="radio"
+                                                name="variant_{{ product.id }}_{{ product_option.name }}"
+                                                value="{{ value }}"
+                                                id="{{ product_option.name }}_{{ product.id }}_{{ forloop.index }}"
+                                                hidden
+                                                {% if forloop.index == 1 %}checked{% endif %}
+                                                aria-label="Select {{ value }} variant"
+                                            >
+                                            <label
+                                            for="{{ product_option.name }}_{{ product.id }}_{{ forloop.index }}"
+                                            title="{{ value }}"
+                                            > {{ value }}
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                    <div class="product_variants_atc_rapper">
+                    {% assign first_variant_id = nil %}
+                        <div class="product_variants_input">
+                            {% for variant in product.variants %}
+                                {% if forloop.first %}
+                                    {% assign first_variant_id = variant.id %}
+                                {% endif %}
+                                <input type="hidden" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}" data-variant-compare-price="{{ variant.compare_at_price | money_without_trailing_zeros }}">
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" data-atc-variant-id="{{ first_variant_id }}" class="set_atc_variant_input">
+                        <button>Add</button>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('.upsell_slider_embded').slick({
+        dots: false,
+        infinite: false,
+        arrows: true,
+        speed: 500,
+        prevArrow:'<span class="slider_arrow_cstm prev_arrow_btn"><svg width="20" height="20" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.8 21.57 7.222 24 19.2 12 7.222 0 4.8 2.43 14.347 12z"/></svg></span>',
+        nextArrow:'<span class="slider_arrow_cstm next_arrow_btn"><svg width="20" height="20" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.8 21.57 7.222 24 19.2 12 7.222 0 4.8 2.43 14.347 12z"/></svg></span>',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        responsive: [
+            {
+            breakpoint: 1399,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            }
+            },
+            {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+            },
+            {
+            breakpoint: 599,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+            }
+        ]
+    });
+});
+</script>
+
+//=================== custom js code prodcut vaiant accoding add vainant in Cart-Drawer ( note create js file in assets folder )=================== 
+
+//================= Upsell product get & set variant id and price js code ====================
+document.addEventListener("DOMContentLoaded", function () {
+    let upsellProductContainer = document.querySelector(".upsell_products_conn");
+    if (!upsellProductContainer) return;
+
+    let upsell_Items = upsellProductContainer.querySelectorAll(".upsell_product_list .upsell_product_item");
+
+    upsell_Items.forEach(item => {
+        let firstValue = null, secondValue = null, thirdValue = null;
+
+        let upsellVariantDetailsWrapper = item.querySelector(".upsell_product_details_rapper");
+        if (!upsellVariantDetailsWrapper) return;
+
+        // Build map of title → variant data (id, price, compare-price)
+        let variantInputs = upsellVariantDetailsWrapper.querySelectorAll(
+            '.product_variants_atc_rapper .product_variants_input > input[type="hidden"]'
+        );
+        let titleToVariantData = {};  // map: title → { id, price, comparePrice }
+        variantInputs.forEach(variantInput => {
+            let title = variantInput.getAttribute("data-variant-title");
+            let id = variantInput.getAttribute("data-variant-id");
+            let price = variantInput.getAttribute("data-variant-price");
+            let comparePrice = variantInput.getAttribute("data-variant-compare-price");
+            if (title && id) {
+                titleToVariantData[title] = {
+                    id: id,
+                    price: price,
+                    comparePrice: comparePrice
+                };
+            }
+        });
+        // console.log("titleToVariantData:", titleToVariantData);
+
+        // Price elements you want to update
+        let regularPriceElm = upsellVariantDetailsWrapper.querySelector(".upsell_product_price_conn .upsell_product_regular_price");
+        let comparePriceElm = upsellVariantDetailsWrapper.querySelector(".upsell_product_price_conn .upsell_product_compare_price");
+        let inputForATC = upsellVariantDetailsWrapper.querySelector(".set_atc_variant_input");
+
+        function recalcAndUpdate() {
+            variantOptionmatch(firstValue, secondValue, thirdValue);
+
+            let fullTitle = [firstValue, secondValue, thirdValue]
+                .filter(v => v != null)
+                .join(" / ");
+
+            let data = titleToVariantData[fullTitle];
+            if (data) {
+                // console.log("Matched variant data:", data);
+                if (inputForATC) {
+                    inputForATC.setAttribute("data-atc-variant-id", data.id);
+                }
+                if (regularPriceElm && data.price != null) {
+                    regularPriceElm.textContent = data.price;
+                }
+                if (comparePriceElm && data.comparePrice != null) {
+                    comparePriceElm.textContent = data.comparePrice;
+                }
+            } else {
+                console.warn("No matching variant for:", fullTitle);
+            }
+        }
+
+        // Setup color labels
+        let colorVariantOption = upsellVariantDetailsWrapper.querySelector(".variant_color_selector_rapper");
+        if (colorVariantOption) {
+            let colorLabels = colorVariantOption.querySelectorAll("label");
+            if (colorLabels.length > 0) {
+                colorLabels[0].click();
+                firstValue = colorLabels[0].getAttribute("title");
+            }
+            colorLabels.forEach(label => {
+                label.addEventListener("click", function () {
+                    firstValue = this.getAttribute("title");
+                    recalcAndUpdate();
+                });
+            });
+        }
+
+        // First pill (size etc.)
+        let anotherVariantOptions = upsellVariantDetailsWrapper.querySelectorAll(".variant_pill_selector_rapper");
+        if (anotherVariantOptions.length > 0) {
+            let labelsFirst = anotherVariantOptions[0].querySelectorAll("label");
+            if (labelsFirst.length > 0) {
+                labelsFirst[0].click();
+                secondValue = labelsFirst[0].getAttribute("title");
+            }
+            labelsFirst.forEach(label => {
+                label.addEventListener("click", function () {
+                    secondValue = this.getAttribute("title");
+                    recalcAndUpdate();
+                });
+            });
+        }
+
+        // Second pill (material etc.)
+        if (anotherVariantOptions.length > 1) {
+            let labelsSecond = anotherVariantOptions[1].querySelectorAll("label");
+            if (labelsSecond.length > 0) {
+                labelsSecond[0].click();
+                thirdValue = labelsSecond[0].getAttribute("title");
+            }
+            labelsSecond.forEach(label => {
+                label.addEventListener("click", function () {
+                    thirdValue = this.getAttribute("title");
+                    recalcAndUpdate();
+                });
+            });
+        }
+
+        // Initial update after default clicks
+        setTimeout(() => {
+            recalcAndUpdate();
+        }, 100);
+    });
+
+});
+
+function variantOptionmatch(firstValue, secondValue, thirdValue) {
+    if (firstValue && secondValue && thirdValue) {
+        // console.log(`${firstValue} / ${secondValue} / ${thirdValue}`);
+    } else if (firstValue && secondValue) {
+        // console.log(`${firstValue} / ${secondValue}`);
+    } else if (firstValue && thirdValue) {
+        // console.log(`${firstValue} / ${thirdValue}`);
+    } else if (secondValue && thirdValue) {
+        // console.log(`${secondValue} / ${thirdValue}`);
+    } else if (firstValue) {
+        // console.log(`${firstValue}`);
+    } else if (secondValue) {
+        // console.log(`${secondValue}`);
+    } else if (thirdValue) {
+        // console.log(`${thirdValue}`);
+    } else {
+        console.log(`No options selected`);
+    }
+}
+
+//================= Upsell product get & set variant id and price js code ====================
+
+
+//================= Get ATC product vaiant id js code ===================
+document.addEventListener("DOMContentLoaded", function () {
+    let upsellProductContainer = document.querySelector(".upsell_products_conn");
+    if (!upsellProductContainer) return;
+
+    let upsell_Items = upsellProductContainer.querySelectorAll(".upsell_product_list .upsell_product_item");
+
+    // Event listener for the "Add to Cart" button click
+    upsell_Items.forEach(item => {
+        let atcButtons = item.querySelectorAll(".upsell_product_details_rapper .product_variants_atc_rapper > button");
+        // console.log("atcButtons ===", atcButtons);  // Log the atcButtons variable
+
+        // Loop through the buttons and add event listeners
+        atcButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                let input = button.previousElementSibling; // Assuming input is the previous sibling of the button
+                if (input) {
+                    let atcVariantID = input.getAttribute("data-atc-variant-id");
+                    if (atcVariantID) {
+                        atcProduct(atcVariantID); // Call the function with the variant ID
+                    } else {
+                        console.log("Variant ID not found");
+                    }
+                } else {
+                    console.log("Input element not found");
+                }
+            });
+        });
+    });
+});
+//================= Get ATC product vaiant id js code ===================
+
+
+//================ cart-Drawer load code when custom atc (Note :- use JS & JQuery ) ====================
+function atcProduct(atcVariantID) {       
+    // Prepare the formData with the selected variant ID
+    let formData = {
+        'items': [{
+            'id': atcVariantID,
+            'quantity': 1
+        }]
+    };
+
+    // Send the request to Shopify's cart API
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Find the cart drawer element
+        // $(cartBubble).load(location.href + " .cart-count-bubble"); 
+        let cartDrawer = document.querySelector("cart-drawer.drawer");
+        $(cartDrawer).load(location.href + " #CartDrawer"); 
+
+        let cartBubble = document.querySelector("#cart-icon-bubble");
+
+        // Fetch and update the entire cart icon
+        fetch(location.href)
+            .then(response => response.text())
+            .then(html => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+                let newCartIcon = doc.querySelector("#cart-icon-bubble");
+                
+                if (newCartIcon) {
+                    // Replace the entire cart icon content with the updated one
+                    cartBubble.innerHTML = newCartIcon.innerHTML;
+                }
+            })
+            .catch(error => console.error('Error updating cart count:', error));
+
+        // Check if the cartDrawer contains the "is-empty" class
+        if (cartDrawer && cartDrawer.classList.contains("is-empty")) {
+            cartDrawer.classList.remove("is-empty");
+        }
+
+        // Add the "active" class to the cart drawer
+        setTimeout(() => {
+            cartDrawer.classList.add("active");
+            document.body.classList.add("overflow-hidden");
+        }, 600);
+
+        console.log('Item added to cart:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
+//================ cart-Drawer load code when custom atc ====================
+
+
+
+
+
+
+
+
+
+
+
+
+
