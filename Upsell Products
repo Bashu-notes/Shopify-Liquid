@@ -341,7 +341,7 @@ fieldset.upsell_product_variants_conn {
                                 {% if forloop.first %}
                                     {% assign first_variant_id = variant.id %}
                                 {% endif %}
-                                <input type="hidden" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}" data-variant-compare-price="{{ variant.compare_at_price | money_without_trailing_zeros }}">
+                                <input type="hidden" data-available="{{ variant.available }}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" data-variant-price="{{ variant.price | money_without_trailing_zeros }}" data-variant-compare-price="{{ variant.compare_at_price | money_without_trailing_zeros }}">
                             {% endfor %}
                         </div>
                         <input type="hidden" data-atc-variant-id="{{ first_variant_id }}" class="set_atc_variant_input">
@@ -628,6 +628,68 @@ function atcProduct(atcVariantID) {
 
 
 //================ cart-Drawer load code when custom atc ====================
+
+
+//================ cart-Drawer load code when custom atc (Note :- html update thorugh loction api ) ====================
+function atcProduct(atcVariantID) {       
+    let formData = {
+        'items': [{
+            'id': atcVariantID,
+            'quantity': 1
+        }]
+    };
+
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Fetch the entire page to get updated cart elements
+        fetch(window.location.href)
+            .then(response => response.text())
+            .then(html => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+                
+                // Update cart drawer
+                let newCartDrawer = doc.querySelector("cart-drawer.drawer");
+                let oldCartDrawer = document.querySelector("cart-drawer.drawer");
+                
+                if (newCartDrawer && oldCartDrawer) {
+                    oldCartDrawer.innerHTML = newCartDrawer.innerHTML;
+                    
+                    // Remove is-empty class and add active class
+                    if (oldCartDrawer.classList.contains("is-empty")) {
+                        oldCartDrawer.classList.remove("is-empty");
+                    }
+                    
+                    setTimeout(() => {
+                        oldCartDrawer.classList.add("active");
+                        document.body.classList.add("overflow-hidden");
+                    }, 600);
+                }
+                
+                // Update cart bubble
+                let newCartBubble = doc.querySelector("#cart-icon-bubble");
+                let oldCartBubble = document.querySelector("#cart-icon-bubble");
+                
+                if (newCartBubble && oldCartBubble) {
+                    oldCartBubble.innerHTML = newCartBubble.innerHTML;
+                }
+
+                console.log('Item added to cart:', data);
+            })
+            .catch(error => console.error('Error updating cart:', error));
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+//================ cart-Drawer load code when custom atc (Note :- html update thorugh loction api ) ====================
 
 
 
