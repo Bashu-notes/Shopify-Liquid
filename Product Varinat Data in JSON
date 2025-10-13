@@ -1,0 +1,44 @@
+//===================== Product single variant data ===============
+
+{
+  "id": 49779638239518,
+  "title": "Brown 7 L Leather",
+  "option1": "Brown",
+  "option2": "7 L",
+  "option3": "Leather",
+  "sku": "",
+  "requires_shipping": true,
+  "taxable": true,
+  "featured_image": {
+    "id": 60930546729246,
+    "product_id": 9759652512030,
+    "position": 2,
+    "created_at": "2025-05-03T08:15:50-04:00",
+    "updated_at": "2025-05-03T08:15:51-04:00",
+    "alt": null,
+    "width": 1200,
+    "height": 1200,
+    "src": "https://bashudhiman.myshopify.com/cdn/shop/files/shop-09.jpg?v=1746274551"
+  },
+  "variant_ids": [49779638173982, 49779638206750, 49779638239518],
+  "available": false,
+  "name": "Brown Briefcase - Brown 7 L Leather",
+  "public_title": "Brown 7 L Leather",
+  "options": ["Brown", "7 L", "Leather"],
+  "price": 680000,
+  "weight": 1000,
+  "compare_at_price": 890000,
+  "inventory_management": "shopify",
+  "barcode": "",
+  "featured_media": {
+    "alt": null,
+    "id": 52639120163102,
+    "position": 2,
+    "preview_image": {
+      "aspect_ratio": 1.0,
+      "height": 1200,
+      "width": 1200,
+      "src": "https://bashudhiman.myshopify.com/cdn/shop/files/shop-09.jpg?v=1746274551"
+    }
+  }
+}
