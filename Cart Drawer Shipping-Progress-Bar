@@ -1,0 +1,479 @@
+//========== create new snippt ( cart-free-gift-bar.liquid ) then paste below code =====================
+<style>
+.cart_progress_bar_conn {
+    margin: 5px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+.cart_progress_bar {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    border: 1px solid;
+    outline: 2px solid #fff;
+    box-shadow: 0px 0px 0px 3px #000;
+    line-height: normal;
+    text-align: center;
+    position: relative;
+}
+.cart_progress_bar::before{
+    content: " ";
+    background-color: #022f4044;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    width: var(--progress-bar-fill);
+}
+.cart_progress_bar .cart_progress_bar_item{
+   border-right: 2px solid;
+   padding: 2px 0;
+}
+.cart_progress_bar .cart_progress_bar_item:last-child{
+   border-right: unset;
+}
+span.cart_price_bar {
+    font-size: 13px;
+    font-weight: 600;
+}
+.checked_item_icon{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+span.checked_item_icon img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.cart_gift_items_name_conn {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    text-align: center;
+    /* margin-top: 10px; */
+}
+.cart_gift_item_name_rapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 0 4px;
+}
+.cart_gift_item_name {
+    line-height: 1.2;
+    font-size: 12px;
+    font-weight: 600;
+}
+.gift_unlocked_indicator_rapper{
+    /* margin-bottom: 10px; */
+}
+.gift_unlocked_indicator {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0;
+    line-height: normal;
+}
+.white_color{}
+.inherit_color{}
+.gift_indicator{
+    color: #D46B43;
+}
+.hide_item{
+    display: none;
+}
+.present_item{
+    display: block;
+}
+.cart_free_gift_conn {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 10px;
+    border: 2px solid;
+    box-shadow: 3px 3px 1px 0px #000;
+    padding-right: 10px;
+}
+.cart_free_gift_image{
+    display: inline-block;
+    width: 100%;
+}
+.cart_free_gift_image img{
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+.cart_free_gift_details {
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.cart_free_gift_details > h3{
+    font-size: 16px;
+    margin: 0;
+}
+.cart_free_gift_details > .free_label{
+    color: red;
+    font-size: 15px;
+    font-weight: 600;
+}
+.cart_free_gift_details > .cart_free_gift_price {
+    font-size: 18px;
+    text-decoration: line-through;
+}
+
+/* ============== checkbox slide css style  ============= */
+.checkbox_group_slide {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    height: 100%;
+}
+.cehckbox_checked {
+    display: flex;
+    min-width: 50px;
+    max-width: 50px;
+    height: 26px;
+    border-radius: 25rem;
+    transition: all 0.3s ease;
+    background-color: #bababa;
+    position: relative;
+    cursor: pointer;
+}
+
+label.cehckbox_checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #444;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+label.cehckbox_checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #00ff94;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 45'%3E%3Cpath d='M48.7498 2.28142C51.3913 -0.359957 55.6739 -0.359921 58.3153 2.28153C60.7556 4.72181 60.9404 8.55699 58.8749 11.2134L58.8041 11.3044L58.3963 11.7663L27.5701 42.5925C25.1298 45.0327 21.2946 45.2175 18.6382 43.152L18.5472 43.0812L18.0853 42.6734L2.63175 27.2198C-0.00973761 24.5784 -0.00973773 20.2957 2.63175 17.6542C5.07203 15.2139 8.9072 15.0291 11.5636 17.0946L11.6546 17.1654L12.1164 17.5731L22.7871 28.2419L48.7498 2.28142C48.7498 2.28138 48.7497 2.28146 48.7498 2.28142Z'/%3E%3C/svg%3E") no-repeat center / 60%;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 61 45'%3E%3Cpath d='M48.7498 2.28142C51.3913 -0.359957 55.6739 -0.359921 58.3153 2.28153C60.7556 4.72181 60.9404 8.55699 58.8749 11.2134L58.8041 11.3044L58.3963 11.7663L27.5701 42.5925C25.1298 45.0327 21.2946 45.2175 18.6382 43.152L18.5472 43.0812L18.0853 42.6734L2.63175 27.2198C-0.00973761 24.5784 -0.00973773 20.2957 2.63175 17.6542C5.07203 15.2139 8.9072 15.0291 11.5636 17.0946L11.6546 17.1654L12.1164 17.5731L22.7871 28.2419L48.7498 2.28142C48.7498 2.28138 48.7497 2.28146 48.7498 2.28142Z'/%3E%3C/svg%3E") no-repeat center / 60%;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.checkbox_group_slide input[type="checkbox"]:checked + label.cehckbox_checked::before {
+  background-color: #222;
+  transform: translate(100%, -50%);
+  opacity: 1;
+}
+.checkbox_group_slide > input{
+    display: none;
+}
+
+.checkbox_group_slide input[type="checkbox"]:checked + label.cehckbox_checked::after {
+  opacity: 1;
+  transform: translate(100%, -50%);
+}
+
+/* ============== checkbox slide css style  ============= */
+@media screen and (max-width:768px) {
+    .gift_unlocked_indicator {
+        font-size: 12px;
+    }
+}
+</style>
+
+
+{% comment %} {{ localization.country.iso_code }} {% endcomment %}
+{% case localization.country.iso_code %}
+  {% when "AU" %}
+    {% assign free_shipping_p = 100 %}
+    {% assign discount_20_off = 200 %}
+    {% assign free_gift = 500 %}
+  {% when "IN" %}
+    {% assign free_shipping_p = 6000 %}
+    {% assign discount_20_off = 12000 %}
+    {% assign free_gift = 30000 %}
+{% endcase %}
+
+{% assign cart_total_p = cart.original_total_price | divided_by: 100 %}
+
+{% assign section_width = 33.333 %}
+{% assign progress_fill = 0 %}
+
+{%- if cart_total_p < free_shipping_p -%}
+  {%- assign first_section_fill = cart_total_p | times: section_width | divided_by: free_shipping_p -%}
+  {%- assign progress_fill = first_section_fill -%}
+
+{%- elsif cart_total_p < discount_20_off -%}
+  {%- assign first_section_fill = section_width -%}
+  {%- assign second_section_range = discount_20_off | minus: free_shipping_p -%}
+  {%- assign second_section_progress = cart_total_p | minus: free_shipping_p -%}
+  {%- assign second_section_fill = second_section_progress | times: section_width | divided_by: second_section_range -%}
+  {%- assign progress_fill = first_section_fill | plus: second_section_fill -%}
+
+{%- elsif cart_total_p < free_gift -%}
+  {%- assign first_section_fill = section_width -%}
+  {%- assign second_section_fill = section_width -%}
+  {%- assign third_section_range = free_gift | minus: discount_20_off -%}
+  {%- assign third_section_progress = cart_total_p | minus: discount_20_off -%}
+  {%- assign third_section_fill = third_section_progress | times: section_width | divided_by: third_section_range -%}
+  {%- assign progress_fill = first_section_fill | plus: second_section_fill | plus: third_section_fill -%}
+
+{%- else -%}
+  {%- assign progress_fill = 100 -%}
+{%- endif -%}
+
+{% assign progress_bar_fill = progress_fill | append: "%" %}
+
+
+<style>
+:root {
+  --progress-bar-fill: {{ progress_bar_fill }};
+}
+</style>
+
+
+{% if cart.item_count != 0 %}
+<div class="cart_progress_bar_conn">
+    <div class="gift_unlocked_indicator_rapper">
+        <p class="gift_unlocked_indicator">
+        {% if cart_total_p >= free_gift %}
+            🎉 Congratulations! You've unlocked all offers.
+        {% else %}
+            {% if cart_total_p < free_shipping_p %}
+                ADD <span class="gift_indicator">{{ free_shipping_p | minus: cart_total_p | times: 100 | money_without_trailing_zeros }}</span> more to unlock <span class="gift_indicator">Free Shipping 🚚</span>
+            {% elsif cart_total_p < discount_20_off %}
+                ADD <span class="gift_indicator">{{ discount_20_off | minus: cart_total_p | times: 100 | money_without_trailing_zeros }}</span> more to unlock <span class="gift_indicator">20% OFF Discount 🛍️</span>
+            {% elsif cart_total_p < free_gift %}
+                ADD <span class="gift_indicator">{{ free_gift | minus: cart_total_p | times: 100 | money_without_trailing_zeros }}</span> more to unlock <span class="gift_indicator">Free exclusive gift 🎁</span>
+            {% endif %}
+        {% endif %}
+        </p>
+    </div>
+    <div class="cart_progress_bar">
+        <div class="cart_progress_bar_item">
+            <span class="cart_price_bar {% if cart_total_p >= free_shipping_p %}white_color{% else %}inherit_color{% endif %}">{{ free_shipping_p | times: 100 | money_without_trailing_zeros }}</span>
+        </div>
+        <div class="cart_progress_bar_item">
+            <span class="cart_price_bar {% if cart_total_p >= discount_20_off %}white_color{% else %}inherit_color{% endif %}">{{ discount_20_off | times: 100 | money_without_trailing_zeros }}</span>
+        </div>
+        <div class="cart_progress_bar_item">
+            <span class="cart_price_bar {% if cart_total_p >= free_gift %}white_color{% else %}inherit_color{% endif %}">{{ free_gift | times: 100 | money_without_trailing_zeros }}</span>
+        </div>
+    </div>
+    <div class="cart_gift_items_name_conn">
+        <div class="cart_gift_item_name_rapper">
+            <span class="cart_gift_item_name {% if cart_total_p >= free_shipping_p %}hide_item{% else %}present_item{% endif %}">Free Shipping</span>
+            <span class="checked_item_icon {% if cart_total_p >= free_shipping_p %}present_item{% else %}hide_item{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/checked-item.png?v=1758527194" alt="icon"></span>
+        </div>
+        <div class="cart_gift_item_name_rapper">
+            <span class="cart_gift_item_name {% if cart_total_p >= discount_20_off %}hide_item{% else %}present_item{% endif %}">20% OFF</span>
+            <span class="checked_item_icon {% if cart_total_p >= discount_20_off %}present_item{% else %}hide_item{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/checked-item.png?v=1758527194" alt="icon"></span>
+        </div>
+        <div class="cart_gift_item_name_rapper">
+            <span class="cart_gift_item_name {% if cart_total_p >= free_gift %}hide_item{% else %}present_item{% endif %}">Exclusive Free Product</span>
+            <span class="checked_item_icon {% if cart_total_p >= free_gift %}present_item{% else %}hide_item{% endif %}"><img src="https://cdn.shopify.com/s/files/1/0851/3250/9470/files/checked-item.png?v=1758527194" alt="icon"></span>
+        </div>
+    </div>
+    {% if cart_total_p >= free_gift %}        
+        <div class="cart_free_gift_conn">
+            {%- assign product = settings.cart_free_gift -%}
+            <span class="cart_free_gift_image"><img src="{{ product.featured_image |  img_url: 'master' }}" alt="image"></span>
+            <div class="cart_free_gift_details">
+                <h3>{{ product.title }}</h3>
+                <span class="cart_free_gift_price">{{ product.price | money_without_trailing_zeros }}</span>
+                <span class="free_label">Free</span>
+            </div>
+            <span class="checkbox_group_slide">
+                    {% for variant in product.variants %}
+                        {% if forloop.first %}
+                            {% assign first_variant_id = variant.id %}
+                        {% endif %}
+                    {% endfor %}
+                    <input type="checkbox" id="checkbox_{{ product.id }}" hidden data-cart_gift_id="{{ first_variant_id }}">
+                    <label class="cehckbox_checked" for="checkbox_{{ product.id }}"></label>
+            </span>
+        </div>
+    {% endif %}
+</div>
+{% endif %}
+{% comment %} 9768408973598 {% endcomment %}
+{% comment %} 9768408973598 {% endcomment %}
+
+
+//=============================== paste below snippt code into ( cart-drawer.liquid ) <div class="drawer__header"> </div> after ===========================
+{% render 'cart-free-gift-bar.liquid' %}
+
+// ================= below code alos paste in cart drawer for for free product quantity sellector hide this id (49808959439134) which product for you can do free product funtionality ==========
+<tbody role="rowgroup"> inside ====>
+<tr class="cart-item{% if item.parent_relationship.parent != null %} cart-item__nested-line{% endif %} {% if item.id == 49808959439134 %}cart_item_gift{% endif %}"
+
+//============== below css code work hide free product hide quntity container =============
+.cart-item.cart_item_gift .cart-item__quantity {
+    display: none;
+    opacity: 0;
+    height: 0;
+}
+
+//============== below js work on click add free product add in cart drawer ============
+
+//================= cart free product ATC code ===================
+ document.addEventListener("DOMContentLoaded", function () {
+    // Initialize once
+    updateCheckboxFromStorage();
+    
+    // Set up click handler that always works
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('label.cehckbox_checked')) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            toggleCheckbox();
+        }
+    });
+    
+    // Continuously sync checkbox state
+    setInterval(updateCheckboxFromStorage, 300);
+});
+
+function updateCheckboxFromStorage() {
+    const input = document.querySelector(".cart_progress_bar_conn input");
+    if (!input) return;
+    
+    // Initialize localStorage if not exists
+    if (!localStorage.getItem("sliderChecked")) {
+        localStorage.setItem("sliderChecked", "false");
+    }
+    
+    const shouldBeChecked = localStorage.getItem("sliderChecked") === "true";
+    
+    // Force update
+    input.checked = shouldBeChecked;
+    input.removeAttribute("checked");
+    if (shouldBeChecked) {
+        input.setAttribute("checked", "checked");
+    }
+}
+
+
+let cartGiftConn = document.querySelector(".cart_progress_bar_conn .cart_free_gift_conn");
+if(!cartGiftConn){
+    let cartGIftRemoveBtn = document.querySelector("cart-drawer.drawer table.cart-items .cart-item.cart_item_gift .cart-item__quantity button.cart-remove-button");
+    if (cartGIftRemoveBtn) {
+        cartGIftRemoveBtn.click();
+    }
+}
+
+
+function toggleCheckbox() {
+    const input = document.querySelector(".cart_progress_bar_conn input");
+    if (!input) return;
+    
+    const newState = !input.checked;
+    
+    // Update storage first
+    localStorage.setItem("sliderChecked", newState.toString());
+    
+    // Then update visual
+    updateCheckboxFromStorage();
+    
+    // Perform actions
+    if (newState) {
+        const cartGiftID = input.getAttribute("data-cart_gift_id");
+        if (cartGiftID) atcProduct(cartGiftID);
+    } else {
+        setTimeout(() => {
+            document.querySelectorAll(".cart_item_gift cart-remove-button button").forEach(btn => btn.click());
+        }, 1500);
+    }
+}
+//================= cart free product ATC code ===================
+
+//================ cart-Drawer load code when custom atc () ====================
+function atcProduct(cartGiftID) {       
+    let formData = {
+        'items': [{
+            'id': cartGiftID,
+            'quantity': 1
+        }]
+    };
+
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Fetch the entire page to get updated cart elements
+        fetch(window.location.href)
+            .then(response => response.text())
+            .then(html => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+                
+                // Update cart drawer
+                let newCartDrawer = doc.querySelector("cart-drawer.drawer");
+                let oldCartDrawer = document.querySelector("cart-drawer.drawer");
+                
+                if (newCartDrawer && oldCartDrawer) {
+                    oldCartDrawer.innerHTML = newCartDrawer.innerHTML;
+                    
+                    // Remove is-empty class and add active class
+                    if (oldCartDrawer.classList.contains("is-empty")) {
+                        oldCartDrawer.classList.remove("is-empty");
+                    }
+                    
+                    setTimeout(() => {
+                        oldCartDrawer.classList.add("active");
+                        document.body.classList.add("overflow-hidden");
+                    }, 600);
+                }
+                
+                // Update cart bubble
+                let newCartBubble = doc.querySelector("#cart-icon-bubble");
+                let oldCartBubble = document.querySelector("#cart-icon-bubble");
+                
+                if (newCartBubble && oldCartBubble) {
+                    oldCartBubble.innerHTML = newCartBubble.innerHTML;
+                }
+
+                console.log('Item added to cart:', data);
+            })
+            .catch(error => console.error('Error updating cart:', error));
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+//================ cart-Drawer load code when custom atc ====================
+
+
+
+
+
+
+
+
+
+
+
+
