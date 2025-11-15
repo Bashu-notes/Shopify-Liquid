@@ -1,0 +1,160 @@
+===================== Create ( qucik-view-modal.liquid) snippet paste below html code  ==========================
+<!-- Modal Overlay -->
+<div class="modal-overlay" style="display:none;"></div>
+
+<!-- Modal Box -->
+<div class="modal-box" style="display:none;">
+
+    <div class="modal-content">
+
+        <!-- Close Button -->
+        <span class="close-modal">&times;</span>
+
+        <!-- Spinner Container -->
+        <div id="modal-spinner" style="display:none;text-align:center;padding:40px 0;">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Dynamic Product Content -->
+        <div id="modal-dynamic-content"></div>
+
+    </div>
+
+</div>
+
+
+===================== Create custom css file or paste in theme.liquid inside head tag  ==========================
+/* Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 9;
+}
+
+/* Modal Box */
+.modal-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 100vh;
+    width: 90%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 8px;
+    display: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Scrollable content */
+.modal-content {
+    padding: 20px;
+    max-height: calc(100vh - 40px);
+    overflow: auto;
+}
+
+/* Close button */
+.close-modal {
+    float: right;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.loading-spinner {
+  border: 4px solid #c55757;
+  border-top: 4px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+===================== paste below btn code in ( card-product.liquid) snippet ==========================
+  <button class="open-modal-btn" data-handle="{{ card_product.handle }}">Quick View</button>
+
+
+===================== Paste below jquery code before </body>  ==========================
+
+<script>
+$(document).ready(function () {
+
+  $(".open-modal-btn").click(async function(e) {
+    e.preventDefault();
+
+    $(".modal-overlay").fadeIn(200);
+    $(".modal-box").fadeIn(200);
+
+    const handle = $(this).data("handle");
+    const url = `/products/${handle}?view=quickview`;
+
+    console.log("Quick view URL:", url);
+
+    // Show spinner, hide content
+    $("#modal-dynamic-content").hide().empty();
+    $("#modal-spinner").show();
+
+    // Force a browser repaint / event loop break so spinner can render
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    try {
+      const req = await fetch(url);
+      const html = await req.text();
+      console.log("Fetched HTML:", html.slice(0, 200), "...");
+
+      // Parse the HTML
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+
+      // Try multiple possible section selectors
+      let mainProduct = tempDiv.querySelector("section.main_product_section");
+      if (!mainProduct) {
+        mainProduct = tempDiv.querySelector(".main-product");
+      }
+      if (!mainProduct) {
+        mainProduct = tempDiv.querySelector("section.product"); 
+      }
+
+      if (mainProduct) {
+        $("#modal-dynamic-content").html(mainProduct.outerHTML);
+      } else {
+        $("#modal-dynamic-content").html("<p>Product section not found.</p>");
+        console.error("main-product section not found in fetched HTML");
+      }
+
+    } catch (err) {
+      console.error("Error fetching quickview:", err);
+      $("#modal-dynamic-content").html("<p>Error loading product.</p>");
+    }
+
+    // Hide spinner, show content
+    $("#modal-spinner").hide();
+    $("#modal-dynamic-content").show();
+  });
+
+  // Close modal
+  $(document).on("click", ".close-modal", function() {
+    $(".modal-overlay").fadeOut(200);
+    $(".modal-box").fadeOut(200);
+  });
+
+  $(".modal-overlay").click(function() {
+    $(".modal-overlay").fadeOut(200);
+    $(".modal-box").fadeOut(200);
+  });
+
+});
+</script>
