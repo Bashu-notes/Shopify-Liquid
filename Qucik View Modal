@@ -22,6 +22,8 @@
 
 </div>
 
+===================== Paste in ( theme.liquid ) file  ==========================
+{% render 'qucik-view-modal' %}
 
 ===================== Create custom css file or paste in theme.liquid inside head tag  ==========================
 /* Overlay */
